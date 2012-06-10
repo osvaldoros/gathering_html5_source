@@ -1,0 +1,14 @@
+cd /work/gathering/client/gathering_html5_source
+   
+java -jar compilers/SoyToJsSrcCompiler.jar --shouldProvideRequireSoyNamespaces --shouldGenerateJsdoc  --outputPathFormat src/com/gthrng/app/soy/login.soy.js src/com/gthrng/app/soy/login.soy   
+java -jar compilers/SoyToJsSrcCompiler.jar --shouldProvideRequireSoyNamespaces --shouldGenerateJsdoc  --outputPathFormat src/com/gthrng/app/soy/events.soy.js src/com/gthrng/app/soy/events.soy   
+java -jar compilers/SoyToJsSrcCompiler.jar --shouldProvideRequireSoyNamespaces --shouldGenerateJsdoc  --outputPathFormat src/com/gthrng/app/soy/signup.soy.js src/com/gthrng/app/soy/signup.soy   
+java -jar compilers/SoyToJsSrcCompiler.jar --shouldProvideRequireSoyNamespaces --shouldGenerateJsdoc  --outputPathFormat src/com/gthrng/app/soy/eventItem.soy.js src/com/gthrng/app/soy/eventItem.soy   
+java -jar compilers/SoyToJsSrcCompiler.jar --shouldProvideRequireSoyNamespaces --shouldGenerateJsdoc  --outputPathFormat src/com/gthrng/app/soy/media.soy.js src/com/gthrng/app/soy/media.soy   
+java -jar compilers/SoyToJsSrcCompiler.jar --shouldProvideRequireSoyNamespaces --shouldGenerateJsdoc  --outputPathFormat src/com/gthrng/app/soy/mediaItem.soy.js src/com/gthrng/app/soy/mediaItem.soy   
+
+/work/gathering/client/google-closure/closure-library/closure/bin/calcdeps.py --dep=src/goog/ --path=src/templates --path=src/com/gthrng/app/main.js --path=src/ --output_mode deps > web/js/app-deps.js       
+
+/work/gathering/client/google-closure/closure-library/closure/bin/build/closurebuilder.py --root=/work/gathering/client/google-closure/closure-library/ --root=src/com/gthrng/  --namespace="com.gthrng" --root=src/templates --compiler_flags="--compilation_level=ADVANCED_OPTIMIZATIONS" --compiler_flags="--externs=src/com/gthrng/app/externs.js" --output_mode=compiled --compiler_jar=compilers/compiler.jar > web/js/app.js         
+
+cp web/js/app.js /work/gathering/client/Gathering1/www/js/app.js
