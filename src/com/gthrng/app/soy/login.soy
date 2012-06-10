@@ -1,0 +1,24 @@
+{namespace com.gthrng.LoginSoy}
+
+/**
+ * Says hello to the world.        
+ */
+{template .getHTML}
+	<div class="container state_container" id="login">
+	
+		<form id="loginform">
+	
+			<p class="wp7">Email Address</p>
+			<input class="textfield" id="email" name="email" type="email" placeholder="Email Address"/>
+			
+			<p class="wp7">Password</p>
+			<input class="textfield" id="password" name="password" type="password" placeholder="Password"/>
+			
+			<input class="visuallyhidden" type="submit"/>
+			
+			<p><div id="no_account_link">I don't have an account yet.</div></p>
+		
+		</form>
+		
+	</div>
+{/template}

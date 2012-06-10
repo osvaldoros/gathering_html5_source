@@ -1,0 +1,39 @@
+/* Style overrides for WP7 */
+
+.wp7 { 
+	display: inline;
+}
+
+form input.textfield {
+	margin-bottom: 10px;
+}
+
+form p {
+	margin-left: 23px;
+	line-height: 1.2;
+}
+
+form p.infotext {
+	margin: 0 23px;
+	margin-bottom: 15px;
+}
+
+div#backbutton p {	
+	font-size: 13pt;
+	margin-top: 10px;
+}
+
+div#header p#pagetitle {
+	font-size: 12pt;
+	margin-top: 7px;
+}
+
+div#camerabuttonwrapper {
+/* 	margin-top: -5px; */
+	margin-bottom: -30px;
+}
+
+ul#photolist li.photoitem p {
+	margin: -2px 10px 7px 10px;
+	font-size: 12pt;
+}

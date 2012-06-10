@@ -1,0 +1,9 @@
+== Google Closure ==
+
+In order to be able to run and debug the javascript application in a local environment, it is necessary to download the Google closure library and the Google closure templates. You can download the source for these from http://closure-library.googlecode.com/svn/trunk/ and http://closure-templates.googlecode.com/svn/trunk/
+
+You may download these anywhere in your environment and then create the following symbolic links inside your src folder:
+
+goog -> closure-library/closure
+templates -> closure-templates/javascript
+

@@ -1,0 +1,4 @@
+** IMPORTANT **
+
+The src folder should not be deployed in production, and the symbolic link should be removed. It is only linked here for debugging purposes.
+

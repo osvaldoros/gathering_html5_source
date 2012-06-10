@@ -1,0 +1,1 @@
+goog.provide('com.gthrng.globals');

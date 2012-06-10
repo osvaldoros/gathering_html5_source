@@ -1,0 +1,16 @@
+{namespace com.gthrng.MediaItemSoy}
+
+/**
+ * Renders a single event in the list of events
+ * @param owner The name of the person who took the pic.
+ * @param url The url of the picture.
+ * @param when When the picture was taken.
+ */
+{template .getHTML}
+<li class="photoitem">
+	<img src="{$url}" width="220" />
+	<p class="owner">{$owner}</p>
+	<p class="timestamp">{$when}</p>
+	<hr class="clear"/>
+</li>
+{/template}

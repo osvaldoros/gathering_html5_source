@@ -1,0 +1,30 @@
+{namespace com.gthrng.EventsSoy}
+
+/**
+ * Renders the events card
+ * @param user The name of the person.
+ */
+{template .getHTML}
+
+<div class="container state_container">
+	
+	<div id="header">
+		
+		<div id="navbar">
+			<div class="button" id="backbutton">
+				<div>
+					<p>Log out</p>
+				</div>
+			</div>
+		</div>
+		
+		<p id="pagetitle">All events for {$user.name}</p>
+	</div> <!-- Header ends -->
+
+	<ul id="eventlist" class="maincontent">
+
+	</ul>
+		
+</div> <!--! end of #container -->
+
+{/template}

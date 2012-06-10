@@ -1,0 +1,192 @@
+<!doctype html>
+	<!-- Conditional comment for mobile ie7 blogs.msdn.com/b/iemobile/ -->
+	<!--[if IEMobile 7 ]>    <html class="no-js iem7" lang="en"> <![endif]-->
+	<!--[if (gt IEMobile 7)|!(IEMobile)]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+
+	<head>
+		<meta charset="utf-8">
+		
+		<title>Gathering</title>
+		<meta name="description" content="">
+		
+		<!-- Mobile viewport optimization h5bp.com/ad -->
+		<meta name="HandheldFriendly" content="True">
+		<meta name="MobileOptimized" content="320">
+		<meta name="viewport" content="user-scalable=no, width=device-width">
+		
+		<script type="text/javascript" charset="utf-8" src="js/cordova-1.5.0.js"></script>
+		
+		<!-- Home screen icon  Mathias Bynens mathiasbynens.be/notes/touch-icons -->
+		<!-- For iPhone 4 with high-resolution Retina display: -->
+		<link rel="apple-touch-icon-precomposed" sizes="114x114" href="img/h/apple-touch-icon.png">
+		<!-- For first-generation iPad: -->
+		<link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/m/apple-touch-icon.png">
+		<!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+		<link rel="apple-touch-icon-precomposed" href="img/l/apple-touch-icon-precomposed.png">
+		<!-- For nokia devices: -->
+		<link rel="shortcut icon" href="img/l/apple-touch-icon.png">
+		
+		<!-- iOS web app, delete if not needed. https://github.com/h5bp/mobile-boilerplate/issues/94 -->
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script>(function(){var a;if(navigator.platform==="iPad"){a=window.orientation!==90||window.orientation===-90?"img/startup-tablet-landscape.png":"img/startup-tablet-portrait.png"}else{a=window.devicePixelRatio===2?"img/startup-retina.png":"img/startup.png"}document.write('<link rel="apple-touch-startup-image" href="'+a+'"/>')})()</script>
+		
+		<!-- The script prevents links from opening in mobile safari. https://gist.github.com/1042026 -->
+		<script>(function(a,b,c){if(c in b&&b[c]){var d,e=a.location,f=/^(a|html)$/i;a.addEventListener("click",function(a){d=a.target;while(!f.test(d.nodeName))d=d.parentNode;"href"in d&&(d.href.indexOf("http")||~d.href.indexOf(e.host))&&(a.preventDefault(),e.href=d.href)},!1)}})(document,window.navigator,"standalone")</script>
+		
+		<!-- Mobile IE allows us to activate ClearType technology for smoothing fonts for easy reading -->
+		<meta http-equiv="cleartype" content="on">
+		
+		<!-- more tags for your 'head' to consider h5bp.com/d/head-Tips -->
+		
+		<!-- Main Stylesheet -->
+		<link rel="stylesheet" href="css/boilerplate.css">
+		<link rel="stylesheet" href="css/gathering.css?1">
+		
+		<!-- Detect WP7 and Android -->
+		<script src="js/mobileesp.js"></script>
+		<script type="text/javascript"> 
+	        <!--
+	        	if (DetectWindowsPhone7()) {
+	        		document.write('<link rel="stylesheet" type="text/css" href="css/wp7.css">');
+	        	};
+	        	if (DetectAndroid()) {
+	        		document.write('<link rel="stylesheet" type="text/css" href="css/android.css">');
+	        	};
+	
+	        // -->
+	    </script>
+	        
+		
+		<!-- All JavaScript at the bottom, except for Modernizr which enables HTML5 elements & feature detects -->
+		<script src="js/libs/modernizr-2.0.6.min.js"></script>
+			
+	</head>
+	
+	<body id="home" onload="com_gthrng_onBodyLoad()">
+		
+			
+	  	<!-- 
+	  	Debug 
+	    <script src="src/goog/goog/base.js"></script>
+	    <script src="js/app-deps.js"></script>     
+	    <script>goog.require('goog.events');</script>
+	    <script>goog.require('com.gthrng');</script>
+	  	-->                      
+	  	
+	  	<!-- 
+	  	Prod 
+	  	-->    
+	    <script src="js/app.js"></script>  
+	    
+	    <script type="text/javascript">  
+	    
+	    
+	    	com_gthrng_onBodyLoad = function(){
+			    document.addEventListener("deviceready", com_gthrng_onDeviceReady, false);
+			}
+	    	
+	    	
+	    	com_gthrng_onDeviceReady = function(){
+		    	// configuration options for this client
+		    	var config = {
+		    		services: {
+		    			Media: {
+		    				methods:[
+				    			{
+		    						name:"listMedia",
+		    						url:"http://api.gthrng.com/gathering/listMedia?event_id={event_id}",
+		    						httpMethod:'GET',
+		    						requiredURLParams:["event_id"]
+				    			}
+		    				]
+		    			},
+		    			Auth: {
+		    				methods:[
+				    			{
+		    						name:"login",
+		    						url:"http://api.gthrng.com/gathering/login",
+		    						httpMethod:'POST',
+		    						requiredURLParams:[]
+				    			},
+				    			{
+		    						name:"signup",
+		    						url:"http://api.gthrng.com/gathering/signup",
+		    						httpMethod:'POST',
+		    						requiredURLParams:[]
+				    			}
+		    				]
+		    			},
+		    			Events: {
+		    				methods:[
+				    			{
+		    						name:"listEventsUsersIsInvited",
+		    						url:"http://api.gthrng.com/gathering/listEventsUsersIsInvited?email={email}",
+		    						httpMethod:'GET',
+		    						requiredURLParams:["email"]
+				    			}
+		    				]
+		    			}
+		    		}
+		    	}
+		    	
+				// parameters could be passed to the main here. The trick would be to either:
+				// a) grab them from the url
+				// b) generate this html dynamically and write the javascript variables through the backend
+				window["gthrng_main"](config);
+	    	}
+	    	
+	    	// for DEBUG only
+	    	com_gthrng_onDeviceReady();
+	    	
+	    </script>  
+	
+		<!-- JavaScript at the bottom for fast page loading -->
+		
+		<!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if necessary -->
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+		<script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.1.min.js"><\/script>')</script>
+		
+		<!-- scripts concatenated and minified via ant build script-->
+		<script src="js/helper.js"></script>
+		
+		<!-- Scrollfix native scrolling -->
+		<script type="text/javascript" src="js/scrollfix.js"></script>	
+		<script type="text/javascript">
+	       	if (DetectIos()) {
+			    var scrollingContent = document.getElementById("loginform");
+			    new ScrollFix(scrollingContent);
+		
+		    	$('.contentWrapper').css('min-height', $(window).height() - 80 + 'px');
+			};
+		</script>
+		<script type="text/javascript">
+	       	if (DetectIos()) {
+				$(document).bind(
+					'touchmove',
+					function(e) {
+						e.preventDefault();
+					}
+				);
+			};
+		</script>
+	
+		
+		<!-- end scripts-->
+	
+		<!-- Debugger - remove for production -->
+		<!-- <script src="https://getfirebug.com/firebug-lite.js"></script> -->
+		
+		<!-- Asynchronous Google Analytics snippet. Change UA-XXXXX-X to be your site's ID.
+		   mathiasbynens.be/notes/async-analytics-snippet -->
+	<!--
+		<script>
+		var _gaq=[["_setAccount","UA-XXXXX-X"],["_trackPageview"]];
+		(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
+		g.src=("https:"==location.protocol?"//ssl":"//www")+".google-analytics.com/ga.js";
+		s.parentNode.insertBefore(g,s)}(document,"script"));
+		</script>
+	-->
+	
+	</body>
+</html>

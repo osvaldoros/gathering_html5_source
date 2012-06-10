@@ -1,0 +1,27 @@
+/* Hack for android scrolling */
+body {
+	background: #fff; 
+}
+	body#home {
+		background: #000;
+	}
+
+/* Fix weird line under header */
+div#header {
+	height: 79px;
+}
+
+/* Non-iOS scrolling */
+.maincontent {	
+	overflow: visible; 
+}
+
+div.container {
+	overflow: visible;
+}
+
+/* Muted signup form text field colours */
+form#accountform input.textfield {
+	color: #451327;
+	background: none rgba(80,60,60,0.1);			
+}

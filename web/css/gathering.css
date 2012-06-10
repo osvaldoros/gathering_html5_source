@@ -1,0 +1,533 @@
+/* LAYOUT */
+
+body {
+	background-color: #000;
+	margin: 0;
+}
+
+div.container {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	
+	background-color: #fff;
+	background-size: 100%;
+
+}
+	
+	/* Login screen bg image */
+	div.container#login {
+		position: relative;
+		width: 320px;
+		min-height: 460px;
+		margin-left: auto;
+		margin-right: auto;
+		
+		overflow: scroll; 
+		-webkit-overflow-scrolling: touch;		
+
+		background-color: #000;
+		background-image: url(../img/loginscreen.jpg);
+		background-repeat: no-repeat;
+		background-position: center;
+		background-position-y: -20px;
+		background-size: 100%;		
+	}
+	
+
+	
+	
+	
+	/* Content */
+	
+	.maincontent {
+		position: absolute;
+		top: 70px;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		
+		overflow: scroll; 
+		-webkit-overflow-scrolling: touch;
+		
+		z-index: 1;	
+	}
+
+	li {
+		margin: 0;
+		list-style: none;
+	}
+	
+	ul#eventlist {
+		padding-top: 10px;
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+	
+		ul#eventlist a {
+			color: inherit;
+			text-decoration: none;		
+		}
+
+		ul#eventlist li {			
+			padding: 0 5px;
+			border-bottom: 2px solid #ece7e9;
+		}
+			.eventiteminfo {
+				float: left;
+			}
+			
+				.now .eventiteminfo,
+				.upcoming .eventiteminfo {
+					width: 240px;
+				}
+			
+			.eventitembadge {
+				float: right;
+				width: 50px;
+				
+				text-align: right;
+				text-transform: uppercase;
+			}
+		
+	ul#photolist {
+		padding-top: 20px;
+		padding-right: 5px;
+		padding-left: 80px;
+	}	
+		li.photoitem {
+			float: right;
+			width: 230px;
+			margin-bottom: 10px;
+			margin-right: 5px;
+			margin-left: 5px;
+			
+			-webkit-border-radius: 5px;
+			-moz-border-radius: 5px;
+			border-radius: 5px;
+			
+			background-color: #252525;
+		}
+			li.photoitem img {
+				margin: 5px;
+			}
+			
+		div#endoftimeline {
+			text-align: center;
+			padding-top: 5px;
+			padding-bottom: 15px;
+		}
+
+	div#sidebar {
+		float: left;
+		position: fixed;
+		top: 85px;
+		width: 69px;
+		height: inherit;
+		min-height: 365px;
+		
+		z-index: 5;
+	}
+		div#sidebar .button {
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+	
+	
+	
+	/* Header */
+	div#header {
+		position: fixed;
+		top: 0px;
+		height: 80px;
+		left: 0;
+		right: 0;
+		
+		background-image: url(../img/header_bg_small.png);
+		background-position: top;
+		background-repeat: repeat-x;
+		
+		z-index: 1000;
+	}
+	
+		div#navbar {
+			position: absolute;
+			top: 0;
+			right: 0;
+			width: 320px;
+			height: 50px;
+			
+			background-image: url(../img/navbar_bg.png);
+			background-size: 100%;		
+		}
+		
+			div#backbutton {
+				position: absolute;
+				top: 0px;
+				left: 0px;
+				
+				width: 81px;
+				height: 45px;
+				
+				text-align: center;
+			}
+				div#backbutton a {
+					position: absolute;
+				}
+
+
+
+
+	/* Buttons */
+	
+	div.button {
+		
+	}			
+		div.button a {
+			position: relative;
+			display: block;
+			top: 0px;
+			padding: 0;
+			height: inherit;
+			width: inherit;
+	
+			color: #000;
+			text-decoration: none;
+		}
+	
+	div.bigbutton {
+		width: 60px;
+		height: 60px;
+	}
+	
+	div#donebuttonwrapper {
+		margin-top: 20px;
+	}
+	
+		div#donebutton {
+			float: right;
+			margin-right: 10px;
+			
+			background-image: url(../img/button_done.png);
+			background-size: 100%;
+		}
+			
+	div#camerabuttonwrapper {
+		position: fixed;
+		bottom: 10px;
+		left: 10px;
+		
+		text-align: center;	
+	}
+
+		div#camerabutton {		
+			background-image: url(../img/button_camera.png);
+			background-size: 100%;
+		}
+
+
+	/* Forms */
+
+	form#loginform {
+		position: absolute;
+		top: 75px;
+	}
+	
+	form#accountform {
+		width: 320px;
+		margin-left: auto;
+		margin-right: auto;
+		
+		padding-top: 20px;
+		padding-bottom: 20px;
+	}
+	
+		form input.textfield {
+			font-family: 'ProximaNovaCondensedRegular', 'Segoe WP', Calibri, sans-serif;
+			
+			/* clear default appearance */
+			-webkit-appearance:none; 
+			-webkit-border-radius: 0;
+			border: none;
+			
+			height: 40px;
+			width: 280px;
+			margin-bottom: 20px;
+			padding: 0 20px;
+					
+		}
+		
+			form#loginform input.textfield {
+				color: #451327;
+				background: none rgba(255,255,255,0.2);			
+			}
+				/* set placeholder colour */
+				form#loginform input::-webkit-input-placeholder {
+				    color: #6c96a7;
+				}
+				form#loginform input:-moz-placeholder {
+				    color: #6c96a7;
+				}
+	
+			form#accountform input.textfield {
+				color: #451327;
+				background: none rgba(69,19,39,0.1);			
+			}
+				/* set placeholder colour */
+				form#accountform input::-webkit-input-placeholder {
+				    color: #987d88;
+				}
+				form#accountform input:-moz-placeholder {
+				    color: #987d88;
+				}
+					
+		input.checkbox {
+			float: left;
+			width: 32px;
+			height: 32px;
+			margin: 0;
+			margin-left: 25px;
+		}
+	
+	div#textcontent {
+		padding: 20px 0;
+	}
+	
+	div#signuplink {
+		position: absolute;
+		width: auto;
+		top: 200px;
+		left: 23px;
+	}
+
+
+
+/* TYPOGRAPHY */
+
+/* Generated by Font Squirrel (http://www.fontsquirrel.com) on April 3, 2012 */
+
+@font-face {
+    font-family: 'ProximaNovaCondensedRegular';
+    src: url('../fonts/proximanovacond-regular-webfont.eot');
+    src: url('../fonts/proximanovacond-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/proximanovacond-regular-webfont.woff') format('woff'),
+         url('../fonts/proximanovacond-regular-webfont.ttf') format('truetype'),
+         url('../fonts/proximanovacond-regular-webfont.svg#ProximaNovaCondensedRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'ProximaNovaCondensedRgIt';
+    src: url('../fonts/proximanovacond-regularit-webfont.eot');
+    src: url('../fonts/proximanovacond-regularit-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/proximanovacond-regularit-webfont.woff') format('woff'),
+         url('../fonts/proximanovacond-regularit-webfont.ttf') format('truetype'),
+         url('../fonts/proximanovacond-regularit-webfont.svg#ProximaNovaCondensedRgIt') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'ProximaNovaCondensedSemibold';
+    src: url('../fonts/proximanovacond-semibold-webfont.eot');
+    src: url('../fonts/proximanovacond-semibold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/proximanovacond-semibold-webfont.woff') format('woff'),
+         url('../fonts/proximanovacond-semibold-webfont.ttf') format('truetype'),
+         url('../fonts/proximanovacond-semibold-webfont.svg#ProximaNovaCondensedSemibold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'ProximaNovaCondensedSBdIt';
+    src: url('../fonts/proximanovacond-semiboldit-webfont.eot');
+    src: url('../fonts/proximanovacond-semiboldit-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/proximanovacond-semiboldit-webfont.woff') format('woff'),
+         url('../fonts/proximanovacond-semiboldit-webfont.ttf') format('truetype'),
+         url('../fonts/proximanovacond-semiboldit-webfont.svg#ProximaNovaCondensedSBdIt') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+body {
+	font-family: 'ProximaNovaCondensedRegular', 'Segoe WP', Calibri, sans-serif;
+	font-size: 16pt;
+	color: #451327;
+}
+
+p {
+	margin: 0;
+	padding: 0;
+}
+
+	div#header p#pagetitle {
+		position: absolute;
+		top: 40px;
+		margin-top: 9px;
+		margin-left: 15px;
+		
+		font-size: 12pt;
+		color: #ebebeb;
+	}
+
+	div#backbutton p {
+		margin-top: 10px;
+		margin-left: 8px;
+		top: 0px;
+		
+		font-size: 14pt;
+		text-shadow: 0px 1px 0px rgba(255,255,255,0.5);
+	}
+
+
+
+	div#donebuttonwrapper {
+		text-align: right;
+	}
+		div#donebuttonwrapper p {
+			position: relative;
+			float: right;
+			top: 21px;
+			margin: 0;
+			margin-right: 8px;
+			
+			font-size: 12pt;		
+			font-family: 'ProximaNovaCondensedRegular', 'Segoe WP', Calibri, sans-serif;
+			color: #451327;
+		}
+
+	div#camerabuttonwrapper p {
+		margin: 5px 0;
+	
+		font-size: 12pt;		
+		font-family: 'ProximaNovaCondensedRegular', 'Segoe WP', Calibri, sans-serif;
+		color: #451327;
+	}
+
+
+	 form p.infotext {
+		margin: 0 28px;
+		margin-top: -10px;
+		margin-bottom: 1em; 
+
+		font-size: 12pt;
+		color: #7a7a7a;
+	}
+	
+	div#textcontent p {		
+		margin: 0 28px;
+		margin-bottom: 0.5em;
+		line-height: 1.4;
+
+		font-size: 12pt;
+		color: #7a7a7a;
+	}
+	
+	form p {
+		margin-left: 23px;
+		font-size: 12pt;
+		color: #5b8596;
+	}
+		
+	label {
+		float: left;
+		display: block;
+		width: 220px;
+		margin-left: 10px;
+		margin-top: -3px;
+		
+		font-size: 12pt;
+		color: #7a7a7a;		
+	}
+		
+	ul#eventlist li .eventiteminfo p {
+		margin: 0;
+		padding: 0;
+		margin-bottom: 10px;
+		
+		font-size: 12pt;
+		color: #acacac;
+	}
+	
+	ul#eventlist li .eventitembadge p {
+		margin-top: 14px;
+		
+		font-size: 12pt;
+		font-family: 'ProximaNovaCondensedSemiBold', 'Segoe WP', Calibri, sans-serif;
+		font-weight: normal;
+	}
+
+	ul#photolist li.photoitem p {
+		margin: 0 10px 5px 10px;
+		font-size: 12pt;
+	}
+		p.owner {
+			float: left;
+			font-family: 'ProximaNovaCondensedSemiBold', 'Segoe WP', Calibri, sans-serif;
+			font-weight: normal;
+			color: #ebebeb;
+		}
+		p.timestamp {
+			float: right;
+			color: #888;
+		}
+		
+		div#endoftimeline p {
+			line-height: 1.4;
+	
+			font-size: 12pt;
+			color: #7a7a7a;
+		}
+
+h1, strong, b,
+div#header p,
+p.buttonlabel {
+		font-family: 'ProximaNovaCondensedSemiBold', 'Segoe WP', Calibri, sans-serif;
+		font-weight: normal;
+}
+
+
+.eventitem h2 {
+	margin: 8px 0;
+	padding: 0;
+	line-height: 1;
+	
+	font-family: 'ProximaNovaCondensedRegular', 'Segoe WP', Calibri, sans-serif;
+	font-size: 20pt;
+	font-weight: normal;
+}
+
+	.now {
+		color: #94190d;
+	}
+
+	.upcoming {
+		color: #451327;
+	}
+
+	.past {
+		color: #707070;
+	}
+	
+	
+/* Misc Styles */
+
+hr.clear {
+	height: 0px;
+	margin: 0;
+	padding: 0;
+	border: none;
+	visibility: hidden;
+	clear: both;
+}
+
+.wp7 { display: none; }

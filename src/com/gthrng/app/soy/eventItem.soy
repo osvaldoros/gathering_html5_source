@@ -1,0 +1,18 @@
+{namespace com.gthrng.EventItemSoy}
+
+/**
+ * Renders a single event in the list of events
+ * @param name The name of the event.
+ * @param when When the event is happening.
+ */
+{template .getHTML}
+<li class="eventitem clearfix now">
+	<div class="eventiteminfo">
+		<h2>{$name}</h2>
+		<p>{$when}</p>
+	</div>
+	<div class="eventitembadge now">
+		<p>Now</p>
+	</div>
+</li>
+{/template}

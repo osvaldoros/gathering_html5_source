@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" 
+  "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>      
+	<title> Gathering</title>
+    <link rel="stylesheet" type="text/css" href="css/styles.css">  
+  </head>
+  <body>
+  	<!-- 
+  	Debug 
+    <script src="src/goog/goog/base.js"></script>
+    <script src="js/app-deps.js"></script>     
+    <script>goog.require('goog.events');</script>
+    <script>goog.require('com.gthrng');</script>
+  	-->                      
+  	
+  	<!-- 
+  	Prod 
+  	-->    
+    <script src="js/app.js"></script>  
+    
+    <script type="text/javascript">  
+    	
+    	// configuration options for this client
+    	var config = {
+    		services: {
+    			Media: {
+    				methods:[
+		    			{
+    						name:"getMedia",
+    						url:"http://api.gthrng.com/gathering/listMedia/?event_id={event_id}",
+    						httpMethod:'GET',
+    						requiredURLParams:["event_id"]
+		    			}
+    				]
+    			}
+    		}
+    	}
+    	
+		// parameters could be passed to the main here. The trick would be to either:
+		// a) grab them from the url
+		// b) generate this html dynamically and write the javascript variables through the backend
+		window["gthrng_main"](config);
+    </script>  
+  </body>
+</html>

@@ -1,0 +1,46 @@
+{namespace com.gthrng.MediaSoy}
+
+/**
+ * Renders the events card
+ * @param event The name of the person.
+ */
+{template .getHTML}
+
+<div class="container state_container">
+	
+	<div id="noscroll">
+		
+		<div id="header">
+			
+			<div id="navbar">
+				<div class="button" id="backbutton">
+					<div>
+						<p>Events</p>
+					</div>
+				</div>
+			</div>
+            
+			
+			<p id="pagetitle">{$event.name}</p>
+		</div> <!-- Header ends -->
+			
+		<div id="sidebar">
+		
+			<div id="camerabuttonwrapper">
+				<p class="buttonlabel">Camera</p>
+				<div class="button bigbutton" id="camerabutton">
+					&nbsp;
+				</div>
+			</div>
+			
+		</div>
+		
+	</div>
+	
+	<ul id="photolist" class="maincontent">
+	
+	</ul>
+					
+</div> <!--! end of #container -->
+
+{/template}
