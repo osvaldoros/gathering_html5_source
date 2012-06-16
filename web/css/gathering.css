@@ -432,10 +432,11 @@ p {
 		color: #7a7a7a;
 	}
 	
-	form p {
+	form p,
+	#no_account_link {
 		margin-left: 23px;
 		font-size: 12pt;
-		color: #5b8596;
+		color: #5d8797;
 	}
 		
 	label {
@@ -487,6 +488,11 @@ p {
 			font-size: 12pt;
 			color: #7a7a7a;
 		}
+		
+a,
+#no_account_link {
+	color: #94180d;
+}
 
 h1, strong, b,
 div#header p,
@@ -507,7 +513,7 @@ p.buttonlabel {
 }
 
 	.now {
-		color: #94190d;
+		color: #94180d;
 	}
 
 	.upcoming {
