@@ -15,6 +15,6 @@ goog.require('soy.StringBuilder');
  */
 com.gthrng.MediaSoy.getHTML = function(opt_data, opt_sb) {
   var output = opt_sb || new soy.StringBuilder();
-  output.append('<div class="container state_container"><div id="noscroll"><div id="header"><div id="navbar"><div class="button" id="backbutton"><div><p>Events</p></div></div></div><p id="pagetitle">', soy.$$escapeHtml(opt_data.event.name), '</p></div> <!-- Header ends --><div id="sidebar"><div id="camerabuttonwrapper"><p class="buttonlabel">Camera</p><div class="button bigbutton" id="camerabutton">&nbsp;</div></div></div></div><ul id="photolist" class="maincontent"></ul></div> <!--! end of #container -->');
+  output.append('<div id="noscroll"><div id="header"><div id="navbar"><div class="button" id="backbutton"><div><p>Events</p></div></div></div><p id="pagetitle">', soy.$$escapeHtml(opt_data.event.name), '</p></div> <!-- Header ends --><div id="sidebar"><div id="camerabuttonwrapper"><p class="buttonlabel">Camera</p><div class="button bigbutton" id="camerabutton">&nbsp;</div></div></div></div><ul id="photolist" class="maincontent"></ul>');
   if (!opt_sb) return output.toString();
 };

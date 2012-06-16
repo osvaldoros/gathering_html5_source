@@ -15,6 +15,6 @@ goog.require('soy.StringBuilder');
  */
 com.gthrng.EventsSoy.getHTML = function(opt_data, opt_sb) {
   var output = opt_sb || new soy.StringBuilder();
-  output.append('<div class="container state_container"><div id="header"><div id="navbar"><div class="button" id="backbutton"><div><p>Log out</p></div></div></div><p id="pagetitle">All events for ', soy.$$escapeHtml(opt_data.user.name), '</p></div> <!-- Header ends --><ul id="eventlist" class="maincontent"></ul></div> <!--! end of #container -->');
+  output.append('<div id="header"><div id="navbar"><div class="button" id="backbutton"><div><p>Log out</p></div></div></div><p id="pagetitle">All events for ', soy.$$escapeHtml(opt_data.user.name), '</p></div> <!-- Header ends --><ul id="eventlist" class="maincontent"></ul>');
   if (!opt_sb) return output.toString();
 };

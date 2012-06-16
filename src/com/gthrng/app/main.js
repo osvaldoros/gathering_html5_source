@@ -91,6 +91,7 @@ com.gthrng.onGlobalModelChange = function(event){
 		// deactivate the previous state component
 		if(typeof com.gthrng.currentStateComponent != 'undefined'){
 			com.gthrng.currentStateComponent.deactivate();
+			window["cleanScrolling"]();
 		}
 		
 		// render the new template
@@ -104,9 +105,26 @@ com.gthrng.onGlobalModelChange = function(event){
 		
 		var HTML = template.getHTML(model);
 		
-		var element = goog.dom.createElement("div");
+		
+		var params = {
+			"class":"container state_container"
+		}
+		
+		if(event.attributeValue == "login"){
+			params.id = "login";
+		}
+		
+		var element = goog.dom.createDom("div", params);
 		element.innerHTML = HTML;
+		goog.dom.flattenElement(element);
 		goog.dom.appendChild(document.body, element);
+		
+		
+		if(event.attributeValue == "login"){
+			window["scrollLoginScreen"]();
+		}else{
+			window["scrollOtherScreens"]();
+		}
 		
 		// activate the new state component
 		com.gthrng.currentStateComponent = com.gthrng.globals.stateMap[event.attributeValue]["component"];

@@ -79,6 +79,42 @@
 	  	-->    
 	    <script src="js/app.js"></script>  
 	    
+		<!-- Scrollfix native scrolling -->
+		<script type="text/javascript" src="js/scrollfix.js"></script>
+		<script type="text/javascript">
+		
+			function noScroll(e){
+				e.preventDefault();
+			}
+		
+			function scrollLoginScreen(){
+					if (DetectIos()) {
+					    var scrollingContent = document.getElementById("loginform");
+					    new ScrollFix(scrollingContent);
+				
+				    	$('.contentWrapper').css('min-height', $(window).height() - 80 + 'px');
+				    	
+						$(document).bind( 'touchmove', noScroll );
+					}
+			}
+			
+			function cleanScrolling(){
+				$(document).unbind( 'touchmove', noScroll );
+				$("#noscroll").unbind( 'touchmove', noScroll );
+			}
+			
+			
+			function scrollOtherScreens(){
+				$("#noscroll").bind( 'touchmove', noScroll );
+	
+			    var scrollingContent = $(".maincontent")[0];
+			    new ScrollFix(scrollingContent);
+		
+		    	$('.contentWrapper').css('min-height', $(window).height() - 0 + 'px');
+			}
+			
+		</script>
+	    
 	    <script type="text/javascript">  
 	    
 	    
@@ -150,8 +186,8 @@
 		<!-- scripts concatenated and minified via ant build script-->
 		<script src="js/helper.js"></script>
 		
-		<!-- Scrollfix native scrolling -->
-		<script type="text/javascript" src="js/scrollfix.js"></script>	
+
+		<!--	
 		<script type="text/javascript">
 	       	if (DetectIos()) {
 			    var scrollingContent = document.getElementById("loginform");
@@ -170,6 +206,7 @@
 				);
 			};
 		</script>
+		-->
 	
 		
 		<!-- end scripts-->

@@ -81,6 +81,7 @@ com.gthrng.events.Controller.prototype.onListEventsResult = function(event){
 		var element = goog.dom.createElement("div");
 		goog.events.listen(element, goog.events.EventType.CLICK, this.eventClicked, false, this);
 		element.innerHTML = html;
+		goog.dom.flattenElement(element);
 		this.eventMap.push({element: element, event:evt})
 		goog.dom.appendChild(this.view.eventlist, element);
 	};
