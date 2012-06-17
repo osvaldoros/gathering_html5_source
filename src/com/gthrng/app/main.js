@@ -73,7 +73,9 @@ com.gthrng.setCurrentState = function(state){
 
 com.gthrng.mAlert = function(msg){
 	if(typeof(navigator["notification"]) != "undefined" && typeof(navigator["notification"]["alert"]) != "undefined"){
-		navigator["notification"]["alert"](msg, null, 'Phone-gap alert');
+		navigator["notification"]["alert"](msg, null, 'Notification');
+	}else{
+		alert(msg);
 	}
 }
 

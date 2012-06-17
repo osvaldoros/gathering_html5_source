@@ -55,12 +55,17 @@ com.gthrng.login.Controller.prototype.submitForm = function(event) {
 com.gthrng.login.Controller.prototype.onLoginResult = function(event){
 	console.log("Login result>")
 	console.log(event.data);
-	com.gthrng.globals.model.user.set(event.data.result);
-	com.gthrng.setCurrentState('events')
+	if(Boolean(event.data["success"]) == true){
+		com.gthrng.globals.model.user.set(event.data.result);
+		com.gthrng.setCurrentState('events')
+	}else{
+		this.onLoginFault(event);
+	}
 }
+
 com.gthrng.login.Controller.prototype.onLoginFault = function(event){
 	console.log("Login fault>")
-	com.gthrng.mAlert(event.data);
+	com.gthrng.mAlert(event.data.message);
 	
 }
 
