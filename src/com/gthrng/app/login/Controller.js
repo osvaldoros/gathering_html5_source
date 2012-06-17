@@ -60,8 +60,7 @@ com.gthrng.login.Controller.prototype.onLoginResult = function(event){
 }
 com.gthrng.login.Controller.prototype.onLoginFault = function(event){
 	console.log("Login fault>")
-	console.log(event.data);
-	// TODO: pop alert here "Invalid user/pass "
+	com.gthrng.mAlert(event.data);
 	
 }
 

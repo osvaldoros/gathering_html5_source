@@ -2,14 +2,14 @@
 
 /**
  * Renders a single event in the list of events
- * @param name The name of the event.
- * @param when When the event is happening.
+ * @param name The event object
+ * @param eventWhen When the event is happening.
  */
 {template .getHTML}
 <li class="eventitem clearfix now">
 	<div class="eventiteminfo">
 		<h2>{$name}</h2>
-		<p>{$when}</p>
+		<p>{$eventWhen}</p>
 	</div>
 	<div class="eventitembadge now">
 		<p>Now</p>

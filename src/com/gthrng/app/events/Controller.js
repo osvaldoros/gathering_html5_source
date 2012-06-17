@@ -76,7 +76,13 @@ com.gthrng.events.Controller.prototype.onListEventsResult = function(event){
 	console.log(event.data);
 	this.clearEvents();
 	for (var i=0; i < event.data.length; i++) {
-		var evt = event.data[i];
+		var eventObj = event.data[i];
+		
+		var evt = {};
+		evt.name = eventObj["name"];
+		evt.eventWhen = eventObj["eventWhen"];
+		evt.id = eventObj["id"];
+		
 		var html = com.gthrng.EventItemSoy.getHTML(evt);
 		var element = goog.dom.createElement("div");
 		goog.events.listen(element, goog.events.EventType.CLICK, this.eventClicked, false, this);

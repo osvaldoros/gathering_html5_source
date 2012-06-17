@@ -3,6 +3,7 @@ goog.require('com.gthrng.shared_lib.Controller');
 
 goog.require('com.gthrng.MediaItemSoy');    
 goog.require('com.gthrng.globals');    
+goog.require('com.gthrng.utils.formatters');    
 goog.require('com.gthrng.shared_lib.api.ServiceLocator');  
 goog.require('com.gthrng.shared_lib.api.Service');  
 goog.require('com.gthrng.shared_lib.api.ServiceMethod');  
@@ -68,8 +69,14 @@ com.gthrng.media.Controller.prototype.onListMediaResult = function(event){
 		var media = {};
 		media.url = "http://photos.gthrng.com/" + mediaObj["_id"]["$id"] + "_thumb.jpg";
 		media.fullSizeURL = "http://photos.gthrng.com/" + mediaObj["_id"]["$id"] + ".jpg";
-		media.owner = "Gathering User";
-		media.when = "Just now";
+		
+		if(typeof(mediaObj["user"]) == "object" && typeof(mediaObj["user"]["name"]) != "undefined"){
+			media.owner = mediaObj["user"]["name"];
+		}else{
+			media.owner = "Unknown User";
+		}
+		
+		media.when = com.gthrng.utils.formatters.friendlyFromTimestamp(mediaObj["uploaded"]);
 		
 		var html = com.gthrng.MediaItemSoy.getHTML(media);
 		var element = goog.dom.createElement("div");
@@ -138,6 +145,9 @@ com.gthrng.media.Controller.prototype.uploadByURI = function(imageURI) {
     var params = new Object();
     params["key"] = "969490e925ae635134d0977aa6e74f9e";
     params["event_id"] = "62ad28eb85c44f36b1a6b755ab5a40ca";
+    
+    var user = com.gthrng.globals.model.user.get(); 
+    params["user_email"] = user["email"]; 
     
     options["params"] = params;
     
