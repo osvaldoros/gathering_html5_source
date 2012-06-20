@@ -8,6 +8,9 @@ goog.require('com.gthrng.shared_lib.api.ServiceMethod');
 goog.require('com.gthrng.shared_lib.events.RemoteServiceEvent');
 goog.require('com.gthrng.shared_lib.events.RemoteServiceEventType');
 
+// localData
+goog.require('com.gthrng.storage.localData');
+
 goog.require('goog.dom.forms');
 goog.require('goog.events');
 
@@ -20,7 +23,6 @@ goog.require('goog.events');
 com.gthrng.login.Controller = function(modelClass, viewClass){
 	
 	com.gthrng.shared_lib.Controller.call(this, modelClass, viewClass);
-	
 	
 	this.authService = com.gthrng.globals.serviceLocator.getService('Auth');
 }
@@ -56,6 +58,7 @@ com.gthrng.login.Controller.prototype.onLoginResult = function(event){
 	console.log("Login result>")
 	console.log(event.data);
 	if(Boolean(event.data["success"]) == true){
+		com.gthrng.storage.localData.saveObject("user", event.data.result);
 		com.gthrng.globals.model.user.set(event.data.result);
 		com.gthrng.setCurrentState('events')
 	}else{
@@ -66,7 +69,6 @@ com.gthrng.login.Controller.prototype.onLoginResult = function(event){
 com.gthrng.login.Controller.prototype.onLoginFault = function(event){
 	console.log("Login fault>")
 	com.gthrng.mAlert(event.data.message);
-	
 }
 
 com.gthrng.login.Controller.prototype.deactivate = function(){

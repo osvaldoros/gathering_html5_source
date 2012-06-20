@@ -25,6 +25,8 @@ goog.require('com.gthrng.media.Controller');
 goog.require('com.gthrng.media.Model');
 goog.require('com.gthrng.media.View');
 
+// localData
+goog.require('com.gthrng.storage.localData');
 
 goog.require('com.gthrng.shared_lib.api.ServiceLocator');  
 
@@ -62,8 +64,16 @@ com.gthrng.main = function(configObj) {
 	}
 	
 	com.gthrng.globals.setCurrentState = com.gthrng.setCurrentState;
-	
-	com.gthrng.setCurrentState('login');
+
+	var user = com.gthrng.storage.localData.getObject("user");
+	if(typeof(user) == "object" && user != null){
+		com.gthrng.globals.model.user.set(user);
+		console.log("set currentState to events")
+		com.gthrng.setCurrentState('events');
+	}else{
+		console.log("set currentState to login")
+		com.gthrng.setCurrentState('login');
+	}
 	
 };
 

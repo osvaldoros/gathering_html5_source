@@ -88,29 +88,33 @@
 			}
 		
 			function scrollLoginScreen(){
-					if (DetectIos()) {
-					    var scrollingContent = document.getElementById("loginform");
-					    new ScrollFix(scrollingContent);
-				
-				    	$('.contentWrapper').css('min-height', $(window).height() - 80 + 'px');
-				    	
-						$(document).bind( 'touchmove', noScroll );
-					}
+				if (DetectIos() && typeof(jQuery) != "undefined") {
+				    var scrollingContent = document.getElementById("loginform");
+				    new ScrollFix(scrollingContent);
+			
+			    	jQuery('.contentWrapper').css('min-height', jQuery(window).height() - 80 + 'px');
+			    	
+					jQuery(document).bind( 'touchmove', noScroll );
+				}
 			}
 			
 			function cleanScrolling(){
-				$(document).unbind( 'touchmove', noScroll );
-				$("#noscroll").unbind( 'touchmove', noScroll );
+				if(typeof(jQuery) != "undefined"){
+					jQuery(document).unbind( 'touchmove', noScroll );
+					jQuery("#noscroll").unbind( 'touchmove', noScroll );
+				}
 			}
 			
 			
 			function scrollOtherScreens(){
-				$("#noscroll").bind( 'touchmove', noScroll );
-	
-			    var scrollingContent = $(".maincontent")[0];
-			    new ScrollFix(scrollingContent);
+				if (DetectIos() && typeof(jQuery) != "undefined") {
+					jQuery("#noscroll").bind( 'touchmove', noScroll );
 		
-		    	$('.contentWrapper').css('min-height', $(window).height() - 0 + 'px');
+				    var scrollingContent = jQuery(".maincontent")[0];
+				    new ScrollFix(scrollingContent);
+			
+			    	jQuery('.contentWrapper').css('min-height', jQuery(window).height() - 0 + 'px');
+			    }
 			}
 			
 		</script>
@@ -119,11 +123,15 @@
 	    
 	    
 	    	com_gthrng_onBodyLoad = function(){
+	    		console.log("body loaded!")
 			    document.addEventListener("deviceready", com_gthrng_onDeviceReady, false);
+			    // for DEBUG only
+    			//com_gthrng_onDeviceReady();
 			}
 	    	
 	    	
 	    	com_gthrng_onDeviceReady = function(){
+	    		console.log("device ready!")
 		    	// configuration options for this client
 		    	var config = {
 		    		services: {
@@ -171,17 +179,17 @@
 				// b) generate this html dynamically and write the javascript variables through the backend
 				window["gthrng_main"](config);
 	    	}
-	    	
-	    	// for DEBUG only
-	    	com_gthrng_onDeviceReady();
-	    	
 	    </script>  
 	
 		<!-- JavaScript at the bottom for fast page loading -->
 		
 		<!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if necessary -->
-		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-		<script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.1.min.js"><\/script>')</script>
+		<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script> -->
+		<script src="js/libs/jquery-1.7.1.min.js"></script>
+		<script type="text/javascript"> 
+			jQuery.noConflict();
+		</script>
+		<!-- <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.1.min.js"><\/script>')</script> -->
 		
 		<!-- scripts concatenated and minified via ant build script-->
 		<script src="js/helper.js"></script>

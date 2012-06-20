@@ -46,7 +46,6 @@ com.gthrng.events.Controller.prototype.activate = function(){
 com.gthrng.events.Controller.prototype.eventClicked = function(event) {
 	var eventObj = this.getEventByElement(event.target);
 	com.gthrng.globals.model.currentEvent.set(eventObj);
-	console.log(eventObj)
 	com.gthrng.setCurrentState('media')
 }
 
@@ -67,6 +66,7 @@ com.gthrng.events.Controller.prototype.getEventByElement = function(element) {
 }
 
 com.gthrng.events.Controller.prototype.loginClicked = function(event) {
+	com.gthrng.storage.localData.deleteObject("user");
 	com.gthrng.setCurrentState('login')
 }
 
@@ -75,22 +75,39 @@ com.gthrng.events.Controller.prototype.onListEventsResult = function(event){
 	console.log("ListEvents result>")
 	console.log(event.data);
 	this.clearEvents();
-	for (var i=0; i < event.data.length; i++) {
-		var eventObj = event.data[i];
-		
-		var evt = {};
-		evt.name = eventObj["name"];
-		evt.eventWhen = eventObj["eventWhen"];
-		evt.id = eventObj["id"];
-		
-		var html = com.gthrng.EventItemSoy.getHTML(evt);
-		var element = goog.dom.createElement("div");
-		goog.events.listen(element, goog.events.EventType.CLICK, this.eventClicked, false, this);
-		element.innerHTML = html;
-		goog.dom.flattenElement(element);
-		this.eventMap.push({element: element, event:evt})
-		goog.dom.appendChild(this.view.eventlist, element);
-	};
+	
+	var previousState = com.gthrng.globals.model.prevState.get();
+	console.log("prevState = " + previousState);
+	
+	if(event.data.length == 1 && previousState != "media"){
+			var single_eventObj = event.data[0];
+			
+			var single_evt = {};
+			single_evt.name = single_eventObj["name"];
+			single_evt.eventWhen = single_eventObj["eventWhen"];
+			single_evt.id = single_eventObj["id"];
+			
+			com.gthrng.globals.model.currentEvent.set(single_eventObj);
+			com.gthrng.setCurrentState('media')
+	}else{
+		for (var i=0; i < event.data.length; i++) {
+			var eventObj = event.data[i];
+			
+			var evt = {};
+			evt.name = eventObj["name"];
+			evt.eventWhen = eventObj["eventWhen"];
+			evt.id = eventObj["id"];
+			
+			var html = com.gthrng.EventItemSoy.getHTML(evt);
+			var element = goog.dom.createElement("div");
+			goog.events.listen(element, goog.events.EventType.CLICK, this.eventClicked, false, this);
+			element.innerHTML = html;
+			goog.dom.flattenElement(element);
+			this.eventMap.push({element: element, event:evt})
+			goog.dom.appendChild(this.view.eventlist, element);
+		};
+	}
+	
 }
 
 

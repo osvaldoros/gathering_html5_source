@@ -11,4 +11,4 @@ java -jar compilers/SoyToJsSrcCompiler.jar --shouldProvideRequireSoyNamespaces -
 
 /work/gathering/client/google-closure/closure-library/closure/bin/build/closurebuilder.py --root=/work/gathering/client/google-closure/closure-library/ --root=src/com/gthrng/  --namespace="com.gthrng" --root=src/templates --compiler_flags="--compilation_level=ADVANCED_OPTIMIZATIONS" --compiler_flags="--externs=src/com/gthrng/app/externs.js" --output_mode=compiled --compiler_jar=compilers/compiler.jar > web/js/app.js         
 
-cp web/js/app.js /work/gathering/client/Gathering1/www/js/app.js
+cp web/js/app.js /work/gathering/client/Gathering/www/js/app.js
