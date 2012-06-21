@@ -45,6 +45,8 @@ com.gthrng.main = function(configObj) {
 	//console.log('main')
 	com.gthrng.globals.model = new com.gthrng.Model();
 	//console.log(configObj)
+	com.gthrng.globals.pusher = configObj["pusher"]; // pusher instance created at index and injected into app
+	
 	com.gthrng.globals.serviceLocator = new com.gthrng.shared_lib.api.ServiceLocator(configObj["services"]);
 	//console.log('serviceLocator')
 	goog.events.listen(com.gthrng.globals.model, com.gthrng.shared_lib.events.ModelEventType.SET_ATTRIBUTE, com.gthrng.onGlobalModelChange);

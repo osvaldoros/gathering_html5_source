@@ -118,6 +118,9 @@
 			}
 			
 		</script>
+		
+		<!-- Pusher -->
+		<script src="http://js.pusher.com/1.12/pusher.min.js"></script>
 	    
 	    <script type="text/javascript">  
 	    
@@ -133,7 +136,10 @@
 	    	com_gthrng_onDeviceReady = function(){
 	    		console.log("device ready!")
 		    	// configuration options for this client
+		    	var pusher = new Pusher('d3078b2ba189f819ee53'); // pusher key
+		    	
 		    	var config = {
+		    		pusher: pusher,
 		    		services: {
 		    			Media: {
 		    				methods:[

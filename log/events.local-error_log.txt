@@ -65,3 +65,5 @@
 [Sun Jun 03 16:53:17 2012] [error] [client 127.0.0.1] File does not exist: /work/gathering/client/closure_www/web/tos.html, referer: http://gthrng.loc/
 [Sun Jun 10 13:09:21 2012] [error] [client 127.0.0.1] File does not exist: /work/gathering/client/closure_www/web/img/l/apple-touch-icon.png, referer: http://gthrng.loc/
 [Sat Jun 16 11:22:13 2012] [error] [client 127.0.0.1] File does not exist: /work/gathering/client/gathering_html5_source/web/img/l/apple-touch-icon.png, referer: http://gthrng.loc/
+[Thu Jun 21 00:06:36 2012] [error] [client 127.0.0.1] File does not exist: /work/gathering/client/gathering_html5_source/web/img/l/apple-touch-icon.png, referer: http://gthrng.loc/
+[Thu Jun 21 00:06:36 2012] [error] [client 127.0.0.1] File does not exist: /work/gathering/client/gathering_html5_source/web/img/l/apple-touch-icon.png

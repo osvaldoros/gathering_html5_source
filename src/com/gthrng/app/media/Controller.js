@@ -23,6 +23,13 @@ com.gthrng.media.Controller = function(modelClass, viewClass){
 	
 	com.gthrng.shared_lib.Controller.call(this, modelClass, viewClass);
 	
+	var owner = this;
+	var pushCallback = function(data){
+		console.log("this.pushCallback > ");
+		owner.refresh();
+	};
+	this.pushCallback = pushCallback;
+	
 	this.mediaService = com.gthrng.globals.serviceLocator.getService('Media');
 	                           
 }
@@ -34,11 +41,18 @@ com.gthrng.media.Controller.prototype.activate = function(){
 	// wire the form submit with our handler
 	this.view.activate();
 	
+	
 	goog.events.listen(this.mediaService["listMedia"], com.gthrng.shared_lib.events.RemoteServiceEventType.RESULT, this.onListMediaResult, false, this);
 	goog.events.listen(this.mediaService["listMedia"], com.gthrng.shared_lib.events.RemoteServiceEventType.FAULT, this.onListMediaFault, false, this);
 	
 	var event = com.gthrng.globals.model.currentEvent.get()
 	this.mediaService["listMedia"].call({"event_id": event['id']});
+	
+	this.channel = com.gthrng.globals.pusher["subscribe"](event['id']);
+	
+
+	
+	this.channel["bind"]("new_media", this.pushCallback);
 	
 	goog.events.listen(this.view.login_link, goog.events.EventType.CLICK, this.loginClicked, false, this);
 	goog.events.listen(this.view.cameraButton, goog.events.EventType.CLICK, this.captureImage, false, this);
@@ -183,6 +197,9 @@ com.gthrng.globals.uploadFail = function(error) {
 
 com.gthrng.media.Controller.prototype.deactivate = function(){
 	this.view.deactivate();
+	
+	this.channel["unbind"]("new_media", this.pushCallback);
+	
 	goog.events.unlisten(this.view.cameraButton, goog.events.EventType.CLICK, this.captureImage, false, this);
 	goog.events.unlisten(this.view.login_link, goog.events.EventType.CLICK, this.loginClicked, false, this);
 	goog.events.unlisten(this.mediaService["listMedia"], com.gthrng.shared_lib.events.RemoteServiceEventType.RESULT, this.onListMediaResult);
