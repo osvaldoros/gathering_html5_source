@@ -24,6 +24,14 @@
 		</div> <!-- Header ends -->
 			
 		<div id="sidebar">
+
+			<!-- form action="http://api.gthrng.com/gathering/uploadFullResFile " method="post" enctype="multipart/form-data" id="upload_form" -->
+			<form action="http://api.gthrng.com/gathering/uploadMediaFile " method="post" enctype="multipart/form-data" id="upload_form">
+				<input type="file" name="file" id="file">
+				<input type="hidden" name="event_id" id="event_id">
+				<input type="hidden" name="user_email" id="user_email">
+				<input type="hidden" name="key" id="key">
+			</form>
 		
 			<div id="camerabuttonwrapper">
 				<p class="buttonlabel">Camera</p>

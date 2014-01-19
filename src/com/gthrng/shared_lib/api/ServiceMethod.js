@@ -39,10 +39,10 @@ goog.inherits(com.gthrng.shared_lib.api.ServiceMethod, goog.events.EventTarget);
  * Performs the actual Ajax call
  * 
  */
-com.gthrng.shared_lib.api.ServiceMethod.prototype.call = function(params) {
+com.gthrng.shared_lib.api.ServiceMethod.prototype.call = function(params, headers, defaultContentType) {
 	console.log('ServiceMethod [' + this.methodConfig["name"] + '].call >');
 	var url = this.replaceParamsInURL(this.methodConfig["url"], this.methodConfig["requiredURLParams"], params);
-	this.io.send(url, this.methodConfig["httpMethod"], params);
+	this.io.send(url, this.methodConfig["httpMethod"], params, headers, defaultContentType);
 }  
 
 /**
@@ -63,6 +63,7 @@ com.gthrng.shared_lib.api.ServiceMethod.prototype.onResponse = function(event) {
 		var responseObj = event.target.getResponseJson();
 		//console.log(responseObj);
 		if(typeof responseObj.success != 'undefined' && responseObj.success == false){
+			console.log(responseObj.message)
 			eventToDispatch = new com.gthrng.shared_lib.events.RemoteServiceEvent(com.gthrng.shared_lib.events.RemoteServiceEventType.FAULT, responseObj); 
 		}else{
 			eventToDispatch = new com.gthrng.shared_lib.events.RemoteServiceEvent(com.gthrng.shared_lib.events.RemoteServiceEventType.RESULT, responseObj); 

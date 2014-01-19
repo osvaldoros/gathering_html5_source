@@ -1,4 +1,4 @@
-cd /work/gathering/client/gathering_html5_source
+cd /work/gathering/client/gathering_html5_client
    
 java -jar compilers/SoyToJsSrcCompiler.jar --shouldProvideRequireSoyNamespaces --shouldGenerateJsdoc  --outputPathFormat src/com/gthrng/app/soy/login.soy.js src/com/gthrng/app/soy/login.soy   
 java -jar compilers/SoyToJsSrcCompiler.jar --shouldProvideRequireSoyNamespaces --shouldGenerateJsdoc  --outputPathFormat src/com/gthrng/app/soy/events.soy.js src/com/gthrng/app/soy/events.soy   

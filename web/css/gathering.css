@@ -16,6 +16,12 @@ div.container {
 	background-size: 100%;
 
 }
+
+input[type="file"] {
+	-moz-opacity:0 ;
+	filter:alpha(opacity: 0);
+	opacity: 0;
+}
 	
 	/* Login screen bg image */
 	div.container#login {

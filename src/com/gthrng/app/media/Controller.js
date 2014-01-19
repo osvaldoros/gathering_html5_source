@@ -44,6 +44,9 @@ com.gthrng.media.Controller.prototype.activate = function(){
 	
 	goog.events.listen(this.mediaService["listMedia"], com.gthrng.shared_lib.events.RemoteServiceEventType.RESULT, this.onListMediaResult, false, this);
 	goog.events.listen(this.mediaService["listMedia"], com.gthrng.shared_lib.events.RemoteServiceEventType.FAULT, this.onListMediaFault, false, this);
+
+	goog.events.listen(this.mediaService["uploadMedia"], com.gthrng.shared_lib.events.RemoteServiceEventType.RESULT, this.onUploadMediaResult, false, this);
+	goog.events.listen(this.mediaService["uploadMedia"], com.gthrng.shared_lib.events.RemoteServiceEventType.FAULT, this.onUploadMediaFault, false, this);
 	
 	var event = com.gthrng.globals.model.currentEvent.get()
 	this.mediaService["listMedia"].call({"event_id": event['id']});
@@ -55,11 +58,47 @@ com.gthrng.media.Controller.prototype.activate = function(){
 	this.channel["bind"]("new_media", this.pushCallback);
 	
 	goog.events.listen(this.view.login_link, goog.events.EventType.CLICK, this.loginClicked, false, this);
+	goog.events.listen(this.view.file, goog.events.EventType.CHANGE, this.fileChanged, false, this);
+	goog.events.listen(this.view.file, "DOMSubtreeModified", this.fileChanged, false, this);
 	goog.events.listen(this.view.cameraButton, goog.events.EventType.CLICK, this.captureImage, false, this);
 	
 	//com.gthrng.mAlert("Bracket style in Media");
 }
 
+
+com.gthrng.media.Controller.prototype.fileChanged = function(event) {
+	var formdata = false;
+	
+	/*
+	*/
+	if (window["FormData"]) {
+  		var formdata = new FormData(this.view.upload_form);
+  		var files = this.view.file.files;
+  		for (var i = files.length - 1; i >= 0; i--) {
+  			var file = files[i];
+  			formdata.append("file", file);
+  		};
+
+		formdata.append("key", this.view.key.value);
+		formdata.append("event_id", this.view.event_id.value);
+		formdata.append("user_email", this.view.user_email.value);
+
+		this.mediaService["uploadMedia"].call(formdata, null, false);
+
+		//formdata.append("media_id", "52dc1783fc9afddc1e000000");
+		//this.mediaService["uploadFullResFile"].call(formdata, null, false);
+
+		//var xhr = new XMLHttpRequest();
+		//xhr.open("POST", "http://api.gthrng.com/gathering/uploadMediaFile", true);
+		//xhr.send(formdata);
+
+
+	}else{
+		this.view.upload_form.submit();
+	}
+	/*
+	*/
+}
 
 com.gthrng.media.Controller.prototype.loginClicked = function(event) {
 	com.gthrng.setCurrentState('events')
@@ -68,6 +107,14 @@ com.gthrng.media.Controller.prototype.loginClicked = function(event) {
 com.gthrng.media.Controller.prototype.refresh = function(){
 	var event = com.gthrng.globals.model.currentEvent.get()
 	this.mediaService["listMedia"].call({"event_id": event['id']});
+}
+
+com.gthrng.media.Controller.prototype.onUploadMediaResult = function(event){
+	console.log("uploadMedia result>")
+}
+
+com.gthrng.media.Controller.prototype.onUploadMediaFault = function(event){
+	console.log("uploadMedia fault>")
 }
 
 com.gthrng.media.Controller.prototype.onListMediaResult = function(event){
@@ -111,6 +158,16 @@ com.gthrng.media.Controller.prototype.onListMediaFault = function(event){
 	console.log(event.data);
 }
 
+com.gthrng.media.Controller.prototype.captureImage = function() {
+	this.view.file.click();
+    var user = com.gthrng.globals.model.user.get(); 
+
+	this.view.key.value = "969490e925ae635134d0977aa6e74f9e";
+    this.view.event_id.value = "62ad28eb85c44f36b1a6b755ab5a40ca";
+    this.view.user_email.value = user["email"]; 
+
+}
+
 //==========================================================================
 // PHONEGAP
 //==========================================================================
@@ -132,17 +189,6 @@ com.gthrng.media.Controller.prototype.captureError = function(error) {
     com.gthrng.mAlert(msg);
 }
 
-// A button will call this function
-//
-com.gthrng.media.Controller.prototype.captureImage = function() {
-	//com.gthrng.mAlert("captureImage >")
-    // Launch device camera application, 
-    // allowing user to capture an image
-    navigator["device"]["capture"]["captureImage"](this.captureSuccess, this.captureError, {
-                                          limit: 1,
-                                          quality: 50
-                                          });
-}
 
 com.gthrng.media.Controller.prototype.uploadMediaFile = function(mediaFile){
 	//com.gthrng.mAlert("uploadMediaFile")	
