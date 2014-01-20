@@ -140,8 +140,8 @@ com.gthrng.media.Controller.prototype.onListMediaResult = function(event){
 		media.when = com.gthrng.utils.formatters.friendlyFromTimestamp(mediaObj["uploaded"]);
 		
 		var html = com.gthrng.MediaItemSoy.getHTML(media);
-		var element = goog.dom.createElement("div");
-		element.innerHTML = html;
+		var element = goog.dom.htmlToDocumentFragment(html);
+		//element.innerHTML = html;
 		goog.dom.appendChild(this.view.photolist, element);
 	};
 	

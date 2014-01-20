@@ -102,17 +102,18 @@
 	    <script src="js/app.js"></script>  
 	    
 		<!-- Scrollfix native scrolling -->
-		<script type="text/javascript" src="js/scrollfix.js"></script>
+		<!-- script type="text/javascript" src="js/scrollfix.js"></script -->
+		<!-- script type="text/javascript" src="js/libs/iscroll.js"></script -->
 		<script type="text/javascript">
-		
+
 			function noScroll(e){
 				e.preventDefault();
 			}
-		
+
 			function scrollLoginScreen(){
 				if (DetectIos() && typeof(jQuery) != "undefined") {
 				    var scrollingContent = document.getElementById("loginform");
-				    new ScrollFix(scrollingContent);
+				    //new ScrollFix(scrollingContent);
 			
 			    	jQuery('.contentWrapper').css('min-height', jQuery(window).height() - 80 + 'px');
 			    	
@@ -132,8 +133,19 @@
 				if (DetectIos() && typeof(jQuery) != "undefined") {
 					jQuery("#noscroll").bind( 'touchmove', noScroll );
 		
-				    var scrollingContent = jQuery(".maincontent")[0];
-				    new ScrollFix(scrollingContent);
+				    var scrollingContent = jQuery("#wrapper")[0];
+				   	//new ScrollFix(scrollingContent);
+
+				   	/*
+				   	if(scrollingContent){
+					   	myScroll = new IScroll('#wrapper', {
+							scrollbars: true,
+							mouseWheel: true,
+							interactiveScrollbars: true,
+							shrinkScrollbars: 'scale',
+							fadeScrollbars: true
+						});	  
+				   	}*/
 			
 			    	jQuery('.contentWrapper').css('min-height', jQuery(window).height() - 0 + 'px');
 			    }
@@ -149,17 +161,10 @@
 	    
 	    	com_gthrng_onBodyLoad = function(){
 	    		console.log("body loaded!")
-			    document.addEventListener("deviceready", com_gthrng_onDeviceReady, false);
-			    // for DEBUG only
-    			com_gthrng_onDeviceReady();
-			}
-	    	
-	    	
-	    	com_gthrng_onDeviceReady = function(){
-	    		console.log("device ready!")
+
+
+				var pusher = new Pusher('d3078b2ba189f819ee53'); // pusher key
 		    	// configuration options for this client
-		    	var pusher = new Pusher('d3078b2ba189f819ee53'); // pusher key
-		    	
 		    	var config = {
 		    		pusher: pusher,
 		    		services: {
@@ -217,8 +222,8 @@
 				// parameters could be passed to the main here. The trick would be to either:
 				// a) grab them from the url
 				// b) generate this html dynamically and write the javascript variables through the backend
-				window["gthrng_main"](config);
-	    	}
+				window["gthrng_main"](config);	    		
+			}
 	    </script>  
 	
 		<!-- JavaScript at the bottom for fast page loading -->
@@ -234,28 +239,6 @@
 		<!-- scripts concatenated and minified via ant build script-->
 		<script src="js/helper.js"></script>
 		
-
-		<!--	
-		<script type="text/javascript">
-	       	if (DetectIos()) {
-			    var scrollingContent = document.getElementById("loginform");
-			    new ScrollFix(scrollingContent);
-		
-		    	$('.contentWrapper').css('min-height', $(window).height() - 80 + 'px');
-			};
-		</script>
-		<script type="text/javascript">
-	       	if (DetectIos()) {
-				$(document).bind(
-					'touchmove',
-					function(e) {
-						e.preventDefault();
-					}
-				);
-			};
-		</script>
-		-->
-	
 		
 		<!-- end scripts-->
 	
