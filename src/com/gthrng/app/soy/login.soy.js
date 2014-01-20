@@ -15,6 +15,6 @@ goog.require('soy.StringBuilder');
  */
 com.gthrng.LoginSoy.getHTML = function(opt_data, opt_sb) {
   var output = opt_sb || new soy.StringBuilder();
-  output.append('<form id="loginform"><p class="wp7">Email Address</p><input class="textfield" id="email" name="email" type="email" placeholder="Email Address"/><p class="wp7">Password</p><input class="textfield" id="password" name="password" type="password" placeholder="Password"/><input class="visuallyhidden" type="submit"/><p><div id="no_account_link">I don\'t have an account yet.</div></p></form>');
+  output.append('\t<form id="loginform"><p class="wp7">Email Address</p><input class="textfield" id="email" name="email" type="email" placeholder="Email Address"/><br/><p class="wp7">Password</p><input class="textfield" id="password" name="password" type="password" placeholder="Password"/><input class="visuallyhidden" type="submit"/><p><div id="no_account_link">I don\'t have an account yet.</div></p></form>');
   if (!opt_sb) return output.toString();
 };

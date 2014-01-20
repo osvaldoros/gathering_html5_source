@@ -25,21 +25,22 @@ input[type="file"] {
 	
 	/* Login screen bg image */
 	div.container#login {
-		position: relative;
-		width: 320px;
-		min-height: 460px;
+		position: absolute;
+		width: 100%;
+		height: 100%;
 		margin-left: auto;
 		margin-right: auto;
 		
-		overflow: scroll; 
+		overflow: hidden; 
 		-webkit-overflow-scrolling: touch;		
 
 		background-color: #000;
-		background-image: url(../img/loginscreen.jpg);
+		/*background-image: url(../img/loginscreen.jpg);*/
+		background-image: url(../img/9-scale-homescreen.png);
 		background-repeat: no-repeat;
-		background-position: center;
-		background-position-y: -20px;
+		/*background-position: center;*/
 		background-size: 100%;		
+			
 	}
 	
 
@@ -239,7 +240,8 @@ input[type="file"] {
 
 	form#loginform {
 		position: absolute;
-		top: 75px;
+		top: 20%;
+		margin-top: 50px;
 	}
 	
 	form#accountform {
