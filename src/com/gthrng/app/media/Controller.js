@@ -3,8 +3,10 @@ goog.require('com.gthrng.shared_lib.Controller');
 
 goog.require('com.gthrng.MediaItemSoy');    
 goog.require('com.gthrng.globals');    
-goog.require('com.gthrng.utils.formatters');    
+goog.require('com.gthrng.shared_lib.utils.formatters');    
+goog.require('com.gthrng.shared_lib.utils.CallBackManager');    
 goog.require('com.gthrng.shared_lib.api.ServiceLocator');  
+goog.require('com.gthrng.shared_lib.graphics.ImageTransform');  
 goog.require('com.gthrng.shared_lib.api.Service');  
 goog.require('com.gthrng.shared_lib.api.ServiceMethod');  
 goog.require('com.gthrng.shared_lib.events.RemoteServiceEvent');
@@ -31,6 +33,9 @@ com.gthrng.media.Controller = function(modelClass, viewClass){
 	this.pushCallback = pushCallback;
 	
 	this.mediaService = com.gthrng.globals.serviceLocator.getService('Media');
+
+	this.imgTransform = new com.gthrng.shared_lib.graphics.ImageTransform();
+	this.cbManaer = new com.gthrng.shared_lib.utils.CallBackManager();
 	                           
 }
 
@@ -68,36 +73,117 @@ com.gthrng.media.Controller.prototype.activate = function(){
 
 com.gthrng.media.Controller.prototype.fileChanged = function(event) {
 	var formdata = false;
+	var owner = this;
 	
-	/*
-	*/
+	// if form data is supported build the form programatically
 	if (window["FormData"]) {
-  		var formdata = new FormData(this.view.upload_form);
+
+		// loop through files in the form
   		var files = this.view.file.files;
-  		for (var i = files.length - 1; i >= 0; i--) {
-  			var file = files[i];
-  			formdata.append("file", file);
-  		};
+  		if(files && files.length > 0){
 
-		formdata.append("key", this.view.key.value);
-		formdata.append("event_id", this.view.event_id.value);
-		formdata.append("user_email", this.view.user_email.value);
+  			// If image transformation is supported resize the image before uploading it
+	  		if(this.imgTransform.isSupported()){
 
-		this.mediaService["uploadMedia"].call(formdata, null, false);
+	  			var resizedFiles = [];
+	  			var resizedBase64Files = [];
 
-		//formdata.append("media_id", "52dc1783fc9afddc1e000000");
-		//this.mediaService["uploadFullResFile"].call(formdata, null, false);
+	  			// Handler executes when we processed ALL the files in the form
+	  			// * add the handler at the beginning so that it is setup for whenever a file is ready
+				this.cbManaer.waitForAllCallbacks(files, function(){
+					var formdata = new FormData();
+					// add those files that we were able to add as bynary Blobs
+					for (var rf = resizedFiles.length - 1; rf >= 0; rf--) {
+				  		var resizedFile = resizedFiles[rf];
+			  			formdata.append("file", resizedFile);
+					};
+					// add those files that we are posting as base64 strings
+					for (var h = resizedBase64Files.length - 1; h >= 0; h--) {
+				  		var resized64 = resizedBase64Files[h];
+			  			formdata.append("base64" + h, resized64);
+					};
+					
+					owner.appendFormVarsAndSend(formdata);
 
-		//var xhr = new XMLHttpRequest();
-		//xhr.open("POST", "http://api.gthrng.com/gathering/uploadMediaFile", true);
-		//xhr.send(formdata);
+				})
+
+				// loop over the files in the form and try to process each one
+			  	for (var i = files.length - 1; i >= 0; i--) {
+			  		var file = files[i];
+			  		// attempt to resize
+		  			var processing = this.imgTransform.resizeImageFile(file, 800, 600, 
+		  				// Handler for each file that we are processing
+		  				function(localizedFile){
+			  				return function(resizedFile){
+			  					// if we successfully resized the file push that one
+			  					if(resizedFile != null){
+			  						if(resizedFile.type == "blob"){
+										resizedFiles.push(resizedFile.file);
+			  						}else if(resizedFile.type == "base64"){
+										resizedBase64Files.push(resizedFile.file);
+			  						}
+									owner.cbManaer.callBackComplete(localizedFile);	
+								// otherwise push the original file (bummer)
+			  					}else{
+									resizedFiles.push(localizedFile);
+									owner.cbManaer.callBackComplete(localizedFile);
+			  					}
+							}
+						}(file)
+		  			);
+					// if the browser doesn't support some of the features required this will return false, so we'll just do the upload without resizing (bummer)
+					if(processing == false){
+						resizedFiles.push(file);
+						this.cbManaer.callBackComplete(file);
+					}
+				}
+
+				
+			// if Image transform is not supported append the files to a form data object and post them directly
+	  		}else{
+		  		var formdata = new FormData();
+			  	for (var i = files.length - 1; i >= 0; i--) {
+			  		var file = files[i];
+		  			formdata.append("file", file);
+				};
+
+				this.appendFormVarsAndSend(formdata);
+	  			
+	  		}
+  		}
 
 
+
+  	// else submit the form which is in the template ( which will have the file in it already )
 	}else{
+
+		var user = com.gthrng.globals.model.user.get(); 
+    	var event = com.gthrng.globals.model.currentEvent.get()
+
+    	// fill in the hidden fields in the form so we get them with the post
+		this.view.key.value = "969490e925ae635134d0977aa6e74f9e";
+    	this.view.event_id.value = event['id'];
+    	this.view.user_email.value = user["email"]; 
+
 		this.view.upload_form.submit();
 	}
 	/*
 	*/
+}
+
+
+
+com.gthrng.media.Controller.prototype.appendFormVarsAndSend = function(formdata) {
+
+
+    var user = com.gthrng.globals.model.user.get(); 
+    var event = com.gthrng.globals.model.currentEvent.get()
+
+	formdata.append("key", "969490e925ae635134d0977aa6e74f9e");
+	formdata.append("event_id", event['id']);
+	formdata.append("user_email", user["email"]);
+
+	this.mediaService["uploadMedia"].call(formdata, null, false);
 }
 
 com.gthrng.media.Controller.prototype.loginClicked = function(event) {
@@ -136,8 +222,20 @@ com.gthrng.media.Controller.prototype.onListMediaResult = function(event){
 		}else{
 			media.owner = "Unknown User";
 		}
+
+		if(com.gthrng.globals.objectUtils.isArray(mediaObj["likes"])){
+			media.likes = mediaObj["likes"].length
+		}else{
+			media.likes = 0
+		}
+
+		if(com.gthrng.globals.objectUtils.isArray(mediaObj["comments"])){
+			media.comments = mediaObj["comments"].length
+		}else{
+			media.comments = 0
+		}
 		
-		media.when = com.gthrng.utils.formatters.friendlyFromTimestamp(mediaObj["uploaded"]);
+		media.when = com.gthrng.shared_lib.utils.formatters.friendlyFromTimestamp(mediaObj["uploaded"]);
 		
 		var html = com.gthrng.MediaItemSoy.getHTML(media);
 		var element = goog.dom.htmlToDocumentFragment(html);
@@ -160,85 +258,7 @@ com.gthrng.media.Controller.prototype.onListMediaFault = function(event){
 
 com.gthrng.media.Controller.prototype.captureImage = function() {
 	this.view.file.click();
-    var user = com.gthrng.globals.model.user.get(); 
-
-	this.view.key.value = "969490e925ae635134d0977aa6e74f9e";
-    this.view.event_id.value = "62ad28eb85c44f36b1a6b755ab5a40ca";
-    this.view.user_email.value = user["email"]; 
-
 }
-
-//==========================================================================
-// PHONEGAP
-//==========================================================================
-
-com.gthrng.media.Controller.prototype.captureSuccess = function(mediaFiles) {
-	//com.gthrng.mAlert("captureSuccess")
-    var i, len;
-    for (i = 0, len = mediaFiles.length; i < len; i += 1) {
-        this.uploadMediaFile(mediaFiles[i]);
-    }       
-}
-
-// Called if something bad happens.
-// 
-com.gthrng.media.Controller.prototype.captureError = function(error) {
-	//com.gthrng.mAlert("captureError")
-    console.log(error)
-    var msg = 'An error occurred during capture: ' + error.code;
-    com.gthrng.mAlert(msg);
-}
-
-
-com.gthrng.media.Controller.prototype.uploadMediaFile = function(mediaFile){
-	//com.gthrng.mAlert("uploadMediaFile")	
-    path = mediaFile.fullPath;
-    this.uploadByURI(path);
-}
-
-com.gthrng.media.Controller.prototype.uploadByURI = function(imageURI) {
-    var options = new FileUploadOptions();
-    options["fileKey"]="file";
-    options["fileName"]=imageURI.substr(imageURI.lastIndexOf('/')+1);
-    options["mimeType"]="image/jpeg";
-    
-    var params = new Object();
-    params["key"] = "969490e925ae635134d0977aa6e74f9e";
-    params["event_id"] = "62ad28eb85c44f36b1a6b755ab5a40ca";
-    
-    var user = com.gthrng.globals.model.user.get(); 
-    params["user_email"] = user["email"]; 
-    
-    options["params"] = params;
-    
-    var ft = new FileTransfer();
-    //ft.upload(imageURI, "http://talktu.me/upload", com.gthrng.win, com.gthrng.fail, options);
-    ft["upload"](imageURI, "http://api.gthrng.com/gathering/uploadMediaFile", com.gthrng.globals.imageUploaded, com.gthrng.globals.uploadFail, options);
-}
-
-// Global functions
-com.gthrng.globals.imageUploaded = function(r) {
-	
-	var mediaComponent = com.gthrng.globals.stateMap["media"]["component"];
-	mediaComponent.refresh();
-	
-	//com.gthrng.mAlert("Image uploaded!")		
-    console.log("Code = " + r["responseCode"]);
-    console.log("Response = " + r["response"]);
-    console.log("Sent = " + r["bytesSent"]);
-}
-
-com.gthrng.globals.uploadFail = function(error) {
-	//com.gthrng.mAlert("Upload Error :(")		
-    alert("An error has occurred: Code = " + error["code"]);
-    console.log("upload error source " + error["source"]);
-    console.log("upload error target " + error["target"]);
-}
-//==========================================================================
-// PHONEGAP ENDS
-//==========================================================================
-
-
 
 
 com.gthrng.media.Controller.prototype.deactivate = function(){

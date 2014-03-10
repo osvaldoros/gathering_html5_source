@@ -29,6 +29,18 @@ com.gthrng.shared_lib.api.ServiceMethod = function(methodConfig) {
 	// http://code.google.com/closure/library/docs/xhrio.html
 	this.io = new goog.net.XhrIo();
 	goog.events.listen(this.io, goog.net.EventType.COMPLETE, this.onResponse, false, this); 
+
+
+	// this.io.upload.addEventListener(
+	// 	"progress", 
+	// 	function(e) {
+	// 		if (e.lengthComputable) {
+	// 			var percentage = Math.round((e.loaded * 100) / e.total);
+	// 			console.log(percentage)
+	// 		}
+	// 	}, 
+	// 	false
+	// );
 	
 	goog.events.EventTarget.call(this);   
 } 

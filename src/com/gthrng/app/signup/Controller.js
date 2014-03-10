@@ -36,6 +36,12 @@ com.gthrng.signup.Controller.prototype.activate = function(){
 		event.preventDefault();
 		return owner.submitForm(event);
 	}
+
+	var invitationCode = com.gthrng.globals.urlUtils.getParam("ic");
+	if(typeof(invitationCode) == "string" && invitationCode != ""){
+		invitationCode = invitationCode.toLowerCase();
+		this.view.invitation_code.value = invitationCode;
+	}
 	
 	goog.events.listen(this.authService["signup"], com.gthrng.shared_lib.events.RemoteServiceEventType.RESULT, this.onSignupResult, false, this);
 	goog.events.listen(this.authService["signup"], com.gthrng.shared_lib.events.RemoteServiceEventType.FAULT, this.onSignupFault, false, this);

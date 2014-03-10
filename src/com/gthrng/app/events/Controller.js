@@ -3,6 +3,7 @@ goog.require('com.gthrng.shared_lib.Controller');
 
 goog.require('com.gthrng.EventItemSoy');    
 goog.require('com.gthrng.globals');    
+goog.require('com.gthrng.shared_lib.utils.formatters');
 goog.require('com.gthrng.shared_lib.api.ServiceLocator');  
 goog.require('com.gthrng.shared_lib.api.Service');  
 goog.require('com.gthrng.shared_lib.api.ServiceMethod');  
@@ -84,7 +85,16 @@ com.gthrng.events.Controller.prototype.onListEventsResult = function(event){
 			
 			var single_evt = {};
 			single_evt.name = single_eventObj["name"];
-			single_evt.eventWhen = single_eventObj["eventWhen"];
+
+
+			var eventDate = com.gthrng.shared_lib.utils.formatters.friendlyFromTimestamp(single_eventObj["start_date"]);
+			var eventTime = com.gthrng.shared_lib.utils.formatters.displayTime(single_eventObj["start_time"]);
+			var joiner = "";
+			if(eventDate != "" && eventTime != ""){
+				joiner = " at ";
+			}
+			var eventWhen =  eventDate + joiner + eventTime
+			single_evt.eventWhen = eventWhen;
 			single_evt.id = single_eventObj["id"];
 			
 			com.gthrng.globals.model.currentEvent.set(single_eventObj);
@@ -95,7 +105,15 @@ com.gthrng.events.Controller.prototype.onListEventsResult = function(event){
 			
 			var evt = {};
 			evt.name = eventObj["name"];
-			evt.eventWhen = eventObj["eventWhen"];
+
+			var eventDate = com.gthrng.shared_lib.utils.formatters.friendlyFromTimestamp(eventObj["start_date"]);
+			var eventTime = com.gthrng.shared_lib.utils.formatters.displayTime(eventObj["start_time"]);
+			var joiner = "";
+			if(eventDate != "" && eventTime != ""){
+				joiner = " at ";
+			}
+			var eventWhen =  eventDate + joiner + eventTime
+			evt.eventWhen = eventWhen;
 			evt.id = eventObj["id"];
 			
 			var html = com.gthrng.EventItemSoy.getHTML(evt);

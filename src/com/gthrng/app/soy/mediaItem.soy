@@ -5,12 +5,16 @@
  * @param owner The name of the person who took the pic.
  * @param url The url of the picture.
  * @param when When the picture was taken.
+ * @param likes The number of likes for this item.
+ * @param comments The number of comments for this item.
  */
 {template .getHTML}
 <li class="photoitem">
-	<img src="{$url}" width="220" />
 	<p class="owner">{$owner}</p>
 	<p class="timestamp">{$when}</p>
+	<img src="{$url}" width="220" />
+	<div class="button socialbutton likebutton">&nbsp;</div><p class="likes">{$likes}</p>
+	<div class="button socialbutton commentbutton">&nbsp;</div><p class="comments">{$comments}</p>
 	<hr class="clear"/>
 </li>
 {/template}

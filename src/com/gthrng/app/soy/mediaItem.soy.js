@@ -15,6 +15,6 @@ goog.require('soy.StringBuilder');
  */
 com.gthrng.MediaItemSoy.getHTML = function(opt_data, opt_sb) {
   var output = opt_sb || new soy.StringBuilder();
-  output.append('<li class="photoitem"><img src="', soy.$$escapeHtml(opt_data.url), '" width="220" /><p class="owner">', soy.$$escapeHtml(opt_data.owner), '</p><p class="timestamp">', soy.$$escapeHtml(opt_data.when), '</p><hr class="clear"/></li>');
+  output.append('<li class="photoitem"><p class="owner">', soy.$$escapeHtml(opt_data.owner), '</p><p class="timestamp">', soy.$$escapeHtml(opt_data.when), '</p><img src="', soy.$$escapeHtml(opt_data.url), '" width="220" /><div class="button socialbutton likebutton">&nbsp;</div><p class="likes">', soy.$$escapeHtml(opt_data.likes), '</p><div class="button socialbutton commentbutton">&nbsp;</div><p class="comments">', soy.$$escapeHtml(opt_data.comments), '</p><hr class="clear"/></li>');
   if (!opt_sb) return output.toString();
 };

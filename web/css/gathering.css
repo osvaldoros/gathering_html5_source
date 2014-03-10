@@ -208,7 +208,27 @@ input[type="file"] {
 	div.bigbutton {
 		width: 60px;
 		height: 60px;
+	}	
+
+	div.socialbutton {
+		width: 30px;
+		height: 30px;
 	}
+
+		div.likebutton {		
+			background-image: url(../img/like.png);
+			background-size: 100%;
+			float:left;
+			margin-left: 5px;
+			margin-top: -2px;			
+		}
+
+		div.commentbutton {		
+			background-image: url(../img/comment.png);
+			background-size: 100%;
+			float: right;
+			margin-right: 5px;
+		}
 	
 	div#donebuttonwrapper {
 		margin-top: 20px;
@@ -476,7 +496,7 @@ p {
 	}
 
 	ul#photolist li.photoitem p {
-		margin: 0 10px 5px 10px;
+		margin: 5px 10px 0 10px;
 		font-size: 12pt;
 	}
 		p.owner {
@@ -486,6 +506,15 @@ p {
 			color: #ebebeb;
 		}
 		p.timestamp {
+			float: right;
+			color: #888;
+		}
+
+		p.likes {
+			float: left;
+			color: #888;
+		}
+		p.comments {
 			float: right;
 			color: #888;
 		}

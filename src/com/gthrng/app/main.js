@@ -29,6 +29,8 @@ goog.require('com.gthrng.media.View');
 goog.require('com.gthrng.storage.localData');
 
 goog.require('com.gthrng.shared_lib.api.ServiceLocator');  
+goog.require('com.gthrng.shared_lib.utils.URLUtils');  
+goog.require('com.gthrng.shared_lib.utils.ObjectUtils');  
 
 goog.require('goog.dom');
 goog.require('goog.soy');
@@ -40,6 +42,34 @@ goog.require('goog.soy');
  * @constructor
  */
 com.gthrng.main = function(configObj) {
+
+	// polyfill to support biding functions in browsers that don't support this
+	if (!Function.prototype.bind) {
+	  Function.prototype.bind = function (oThis) {
+	    if (typeof this !== "function") {
+	      // closest thing possible to the ECMAScript 5 internal IsCallable function
+	      throw new TypeError("Function.prototype.bind - what is trying to be bound is not callable");
+	    }
+
+	    var aArgs = Array.prototype.slice.call(arguments, 1), 
+	        fToBind = this, 
+	        fNOP = function () {},
+	        fBound = function () {
+	          return fToBind.apply(this instanceof fNOP && oThis
+	                                 ? this
+	                                 : oThis,
+	                               aArgs.concat(Array.prototype.slice.call(arguments)));
+	        };
+
+	    fNOP.prototype = this.prototype;
+	    fBound.prototype = new fNOP();
+
+	    return fBound;
+	  };
+	}
+
+
+
 	
 	
 	//console.log('main')
@@ -48,6 +78,8 @@ com.gthrng.main = function(configObj) {
 	com.gthrng.globals.pusher = configObj["pusher"]; // pusher instance created at index and injected into app
 	
 	com.gthrng.globals.serviceLocator = new com.gthrng.shared_lib.api.ServiceLocator(configObj["services"]);
+	com.gthrng.globals.urlUtils = new com.gthrng.shared_lib.utils.URLUtils();
+	com.gthrng.globals.objectUtils = new com.gthrng.shared_lib.utils.ObjectUtils();
 	//console.log('serviceLocator')
 	goog.events.listen(com.gthrng.globals.model, com.gthrng.shared_lib.events.ModelEventType.SET_ATTRIBUTE, com.gthrng.onGlobalModelChange);
 	
@@ -66,12 +98,21 @@ com.gthrng.main = function(configObj) {
 	}
 	
 	com.gthrng.globals.setCurrentState = com.gthrng.setCurrentState;
+	var invitationCode = com.gthrng.globals.urlUtils.getParam("ic");
+	var requireStartState = com.gthrng.globals.urlUtils.getParam("p");
+
+	if(typeof(invitationCode) == "string" && invitationCode != ""){
+		requireStartState = "signup";
+	}
 
 	var user = com.gthrng.storage.localData.getObject("user");
 	if(typeof(user) == "object" && user != null){
 		com.gthrng.globals.model.user.set(user);
 		console.log("set currentState to events")
 		com.gthrng.setCurrentState('events');
+	}else if(typeof(requireStartState) == "string" && requireStartState != "" && com.gthrng.globals.stateMap.hasOwnProperty( requireStartState.toLowerCase() ) ){
+		console.log("set currentState from url param")
+		com.gthrng.setCurrentState(requireStartState);
 	}else{
 		console.log("set currentState to login")
 		com.gthrng.setCurrentState('login');
